@@ -14,6 +14,10 @@ http.listen(process.env.PORT || 3000, function() {
   console.log('App listening at http://%s:%s', host, port)
 });
 
+io.sockets.on('connection', function (client) {
+    console.log("connection :")
+});
+
 io.on('connection', function(socket) {
   console.log('Client connected to the WebSocket');
 
