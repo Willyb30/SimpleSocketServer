@@ -1,0 +1,25 @@
+{
+  "name": "simplesocketserver",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "node server.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Willyb30/SimpleSocketServer.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Willyb30/SimpleSocketServer/issues"
+  },
+  "homepage": "https://github.com/Willyb30/SimpleSocketServer#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "http": "0.0.1-security",
+    "socket.io": "^4.5.3"
+  }
+}
