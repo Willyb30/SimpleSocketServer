@@ -3,7 +3,7 @@ var app = express()
 var http = require('http').createServer(app);
 const io = require('socket.io')(http);
 
-app.get('*', function (req, res) {
+app.get('/*', function (req, res) {
     console.log( "access" +req.url)
 
     var url = req.url.split('?')[0];
@@ -16,7 +16,7 @@ app.get('*', function (req, res) {
         var peerId = splitted[3];
         
 
-        if (io)
+        if (io && page=="wss")
         {
             console.log("io is ok"); 
             var targetPeer = io.sockets.adapter.nsp.connected[peerId];
@@ -37,6 +37,28 @@ app.get('*', function (req, res) {
   res.sendFile(__dirname + '/index.html');
 });
 
+
+
+io.on('connection', function(socket) {
+    console.log('Client connected to the WebSocket');
+  
+    socket.on('disconnect', () => {
+      console.log('Client disconnected');
+    });
+  
+    socket.on('chat message', function(msg) {
+      console.log("Received a chat message");
+      io.emit('chat message', msg);
+    });
+  
+    socket.on('message', function(msg) {
+      console.log("Received a message");
+      io.emit('chat message', msg);
+    });
+  
+  })
+
+
 http.listen(process.env.PORT || 3000, function() {
   var host = http.address().address
   var port = http.address().port
@@ -45,25 +67,3 @@ http.listen(process.env.PORT || 3000, function() {
 
 
 
-io.sockets.on('connection', function (client) {
-    console.log("connection :")
-});
-
-io.on('connection', function(socket) {
-  console.log('Client connected to the WebSocket');
-
-  socket.on('disconnect', () => {
-    console.log('Client disconnected');
-  });
-
-  socket.on('chat message', function(msg) {
-    console.log("Received a chat message");
-    io.emit('chat message', msg);
-  });
-
-  socket.on('message', function(msg) {
-    console.log("Received a message");
-    io.emit('chat message', msg);
-  });
-
-})
