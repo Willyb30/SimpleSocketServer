@@ -1,7 +1,7 @@
 var express = require('express')
 var app = express()
 var http = require('http').createServer(app);
-
+const io = require('socket.io')(http);
 /*
 app.get('*', function (req, res) {
     console.log( "access" +req.url)
@@ -15,7 +15,7 @@ http.listen(process.env.PORT || 3000, function() {
 });
 
 
-const io = require('socket.io')(http);
+
 io.sockets.on('connection', function (client) {
     console.log("connection :")
 });
